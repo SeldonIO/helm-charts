@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seldon-kafka
+data:
+  kafka.json: |-
+   {
+      "bootstrap.servers": "{{ .Values.kafka.bootstrap }}",
+      "debug": "{{ .Values.kafka.debug }}",
+      "consumer":{
+         "session.timeout.ms": {{ .Values.kafka.consumer.sessionTimeoutMs }},
+         "auto.offset.reset": "{{ .Values.kafka.consumer.autoOffsetReset }}",
+         "topic.metadata.propagation.max.ms": "{{ .Values.kafka.consumer.topicMetadataPropagationMaxMs }}"
+      },
+      "producer":{
+        "linger.ms": {{ .Values.kafka.producer.lingerMs }},
+        "message.max.bytes": {{ int .Values.kafka.producer.messageMaxBytes }}
+      },
+      "streams":{
+      }
+   }

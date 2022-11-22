@@ -1,0 +1,219 @@
+# Security settings
+security:
+  controlplane:
+    protocol: PLAINTEXT
+    ssl:
+      server:
+        secret: seldon-controlplane-server
+        clientValidationSecret: seldon-controlplane-client
+        keyPath: /tmp/certs/cps/tls.key
+        crtPath: /tmp/certs/cps/tls.crt
+        caPath: /tmp/certs/cps/ca.crt
+        clientCaPath: /tmp/certs/cpc/ca.crt
+      client:
+        secret: seldon-controlplane-client
+        serverValidationSecret: seldon-controlplane-server
+        keyPath: /tmp/certs/cpc/tls.key
+        crtPath: /tmp/certs/cpc/tls.crt
+        caPath: /tmp/certs/cpc/ca.crt
+        serverCaPath: /tmp/certs/cps/ca.crt
+  kafka:
+    protocol: PLAINTEXT
+    ssl:
+      client:
+        secret:
+        brokerValidationSecret:
+        keyPath: /tmp/certs/kafka/client/tls.key
+        crtPath: /tmp/certs/kafka/client/tls.crt
+        caPath: /tmp/certs/kafka/client/ca.crt
+        brokerCaPath: /tmp/certs/kafka/broker/ca.crt
+        endpointIdentificationAlgorithm:
+  envoy:
+    protocol: PLAINTEXT
+    ssl:
+      upstream:
+        server:
+          secret: seldon-upstream-server
+          clientValidationSecret: seldon-upstream-client
+          keyPath: /tmp/certs/dus/tls.key
+          crtPath: /tmp/certs/dus/tls.crt
+          caPath: /tmp/certs/dus/ca.crt
+          clientCaPath: /tmp/certs/duc/ca.crt
+        client:
+          secret: seldon-upstream-client
+          serverValidationSecret: seldon-upstream-server
+          keyPath: /tmp/certs/duc/tls.key
+          crtPath: /tmp/certs/duc/tls.crt
+          caPath: /tmp/certs/duc/ca.crt
+          serverCaPath: /tmp/certs/dus/ca.crt
+      downstream:
+        server:
+          secret: seldon-downstream-server
+          clientValidationSecret:
+          keyPath: /tmp/certs/dds/tls.key
+          crtPath: /tmp/certs/dds/tls.crt
+          caPath: /tmp/certs/dds/ca.crt
+          clientCaPath: /tmp/certs/ddc/ca.crt
+        client:
+          mtls: false
+          secret:
+          serverValidationSecret: seldon-downstream-server
+          keyPath: /tmp/certs/ddc/tls.key
+          crtPath: /tmp/certs/ddc/tls.crt
+          caPath: /tmp/certs/ddc/ca.crt
+          serverCaPath: /tmp/certs/dds/ca.crt
+
+opentelemetry:
+  endpoint: seldon-collector:4317
+  enable: true
+  ratio: 1
+
+hodometer:
+  enabled: true
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: seldonio/seldon-hodometer
+    tag: #TAG_VERSION_PLACEHOLDER#
+  logLevel: info
+  metricsLevel: feature
+  extraPublishUrls: ""
+  resources:
+    cpu: 1m
+    memory: 32Mi
+
+kafka:
+  debug:
+  bootstrap: seldon-kafka-bootstrap.seldon-mesh:9092
+  consumer:
+    sessionTimeoutMs: 6000
+    autoOffsetReset: earliest
+    topicMetadataRefreshIntervalMs: 1000
+    topicMetadataPropagationMaxMs: 300000
+  producer:
+    lingerMs: 0
+    messageMaxBytes: 1000000000
+  topics:
+    replicationFactor: 1
+    numPartitions: 1
+
+modelgateway:
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: seldonio/seldon-modelgateway
+    tag: #TAG_VERSION_PLACEHOLDER#
+  workers: 8
+  resources:
+    cpu: 100m
+    memory: 1G
+
+pipelinegateway:
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: seldonio/seldon-pipelinegateway
+    tag: #TAG_VERSION_PLACEHOLDER#
+  resources:
+    cpu: 100m
+    memory: 1G
+
+dataflow:
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: seldonio/seldon-dataflow-engine
+    tag: #TAG_VERSION_PLACEHOLDER#
+  cores: 4
+  resources:
+    cpu: 100m
+    memory: 1G
+
+controller:
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: seldonio/seldonv2-controller
+    tag: #TAG_VERSION_PLACEHOLDER#
+  resources:
+    cpu: 10m
+    memory: 64Mi
+
+envoy:
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: seldonio/seldon-envoy
+    tag: #TAG_VERSION_PLACEHOLDER#
+  resources:
+    cpu: 100m
+    memory: 128Mi
+  service:
+    type: LoadBalancer
+
+scheduler:
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: seldonio/seldon-scheduler
+    tag: #TAG_VERSION_PLACEHOLDER#
+  resources:
+    cpu: 100m
+    memory: 1Gi
+    storage: 1Gi
+  service:
+    type: LoadBalancer
+
+serverConfig:
+  rclone:
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/seldon-rclone
+      tag: #TAG_VERSION_PLACEHOLDER#
+    resources:
+      cpu: 50m
+      memory: 128Mi
+
+  agent:
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/seldon-agent
+      tag: #TAG_VERSION_PLACEHOLDER#
+    overcommitPercentage: "10"
+    scalingStatsPeriodSeconds: "20"
+    modelInferenceLagThreshold: "30"
+    modelInactiveSecondsThreshold: "600"
+    resources:
+      cpu: 200m
+      memory: 1Gi
+
+  mlserver:
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/mlserver
+      tag: 1.2.0.dev12
+    serverCapabilities: "mlserver,alibi-detect,alibi-explain,lightgbm,mlflow,python,sklearn,spark-mlib,xgboost"
+    modelVolumeStorage: 1Gi
+    resources:
+      cpu: 100m
+      memory: 1Gi
+
+  triton:
+    image:
+      pullPolicy: IfNotPresent
+      registry: nvcr.io
+      repository: nvidia/tritonserver
+      tag: 22.05-py3
+    serverCapabilities: "triton,dali,fil,onnx,openvino,python,pytorch,tensorflow,tensorrt"
+    modelVolumeStorage: 1Gi
+    resources:
+      cpu: 100m
+      memory: 1Gi
+
+# For use with service meshes like Istio, which require specific prefixes for
+# the names of ports handling gRPC/HTTP2 traffic.
+# For Istio, use 'grpc-' or 'http2-', noting the trailing '-'.
+serviceGRPCPrefix: ""
