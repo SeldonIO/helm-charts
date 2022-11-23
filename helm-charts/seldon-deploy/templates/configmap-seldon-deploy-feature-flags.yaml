@@ -1,0 +1,8 @@
+{{- if .Values.featureFlags.configMap -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.featureFlags.configMap }}
+data:
+  flags: '[{ "ID": "USER_MANAGEMENT_ENABLED", "Value": "true" }, { "ID": "SELDON_PIPELINES_ENABLED", "Value": "true" }]'
+{{- end -}}
