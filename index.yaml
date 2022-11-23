@@ -12,7 +12,7 @@ entries:
     - mlops
     name: seldon-core-v2-crds
     urls:
-    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-crds-0.4.0-rc2/seldon-core-v2-crds-0.4.0-rc2.tgz
+    - https://seldonio.github.io/helm-charts/resources/seldon-core-v2-crds-0.4.0-rc2.tgz
     version: 0.4.0-rc2
   seldon-core-v2-servers:
   - apiVersion: v1
@@ -26,7 +26,7 @@ entries:
     - mlops
     name: seldon-core-v2-servers
     urls:
-    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-servers-0.4.0-rc2/seldon-core-v2-servers-0.4.0-rc2.tgz
+    - https://seldonio.github.io/helm-charts/resources/seldon-core-v2-servers-0.4.0-rc2.tgz
     version: 0.4.0-rc2
   seldon-core-v2-setup:
   - apiVersion: v1
@@ -40,6 +40,6 @@ entries:
     - mlops
     name: seldon-core-v2-setup
     urls:
-    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-setup-0.4.0-rc2/seldon-core-v2-setup-0.4.0-rc2.tgz
+    - https://seldonio.github.io/helm-charts/resources/seldon-core-v2-setup-0.4.0-rc2.tgz
     version: 0.4.0-rc2
 generated: "2022-11-22T17:33:27.94038085Z"
