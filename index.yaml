@@ -15,6 +15,19 @@ entries:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-crds-0.4.0-rc5/seldon-core-v2-crds-0.4.0-rc5.tgz
     version: 0.4.0-rc5
   - apiVersion: v1
+    appVersion: 0.4.0-rc4
+    created: "2022-11-25T10:59:05.935208703Z"
+    description: Seldon Core V2 CRDs
+    digest: de8c2c6674326b2a0522123d08b18f41b802ec45ba1413d740603102591db879
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-crds
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-crds-0.4.0-rc4/seldon-core-v2-crds-0.4.0-rc4.tgz
+    version: 0.4.0-rc4
+  - apiVersion: v1
     appVersion: 0.4.0-rc2
     created: "2022-11-22T17:33:27.660457636Z"
     description: Seldon Core V2 CRDs
@@ -41,6 +54,19 @@ entries:
     urls:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-servers-0.4.0-rc5/seldon-core-v2-servers-0.4.0-rc5.tgz
     version: 0.4.0-rc5
+  - apiVersion: v1
+    appVersion: 0.4.0-rc4
+    created: "2022-11-25T10:59:05.935523754Z"
+    description: Seldon Core V2 Servers
+    digest: 0f9bd151a43789e08b0bd8d786382e9f7f003afa27fae95936e3ce6d8e37606f
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-servers
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-servers-0.4.0-rc4/seldon-core-v2-servers-0.4.0-rc4.tgz
+    version: 0.4.0-rc4
   - apiVersion: v1
     appVersion: 0.4.0-rc2
     created: "2022-11-22T17:33:27.807645002Z"
@@ -69,6 +95,19 @@ entries:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-setup-0.4.0-rc5/seldon-core-v2-setup-0.4.0-rc5.tgz
     version: 0.4.0-rc5
   - apiVersion: v1
+    appVersion: 0.4.0-rc4
+    created: "2022-11-25T10:59:05.936955231Z"
+    description: Seldon Core V2 Setup
+    digest: 0923b9ea9bc64e4f347defd339adbe45098bccb4c184fe30b763f0225577bd65
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-setup
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-setup-0.4.0-rc4/seldon-core-v2-setup-0.4.0-rc4.tgz
+    version: 0.4.0-rc4
+  - apiVersion: v1
     appVersion: 0.4.0-rc2
     created: "2022-11-22T17:33:27.94037625Z"
     description: Seldon Core V2 Setup
@@ -81,4 +120,14 @@ entries:
     urls:
     - https://seldonio.github.io/helm-charts/resources/seldon-core-v2-setup-0.4.0-rc2.tgz
     version: 0.4.0-rc2
-generated: "2022-11-25T10:04:53.605543662Z"
+  seldon-deploy:
+  - apiVersion: v2
+    appVersion: 2.0.0-rc3
+    created: "2022-11-25T10:59:05.938785756Z"
+    description: A Helm chart for Kubernetes
+    digest: 1bf284009a9f7c87ab98fe34cda1edfd8713318811c01f289f4b4d5652391b51
+    name: seldon-deploy
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-deploy-2.0.0-rc3/seldon-deploy-2.0.0-rc3.tgz
+    version: 2.0.0-rc3
+generated: "2022-11-25T10:59:05.928387726Z"
