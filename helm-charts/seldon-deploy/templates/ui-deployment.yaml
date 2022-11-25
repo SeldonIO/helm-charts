@@ -1,0 +1,123 @@
+{{- if .Values.ui -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "seldon-deploy.fullname" . }}-ui
+  labels:
+    app: seldon-deploy-ui-server
+    app.kubernetes.io/name: {{ include "seldon-deploy.name" . }}-ui
+    helm.sh/chart: {{ include "seldon-deploy.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.ui.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "seldon-deploy.name" . }}-ui
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        # prometheus.io/scrape: "true"
+        sidecar.istio.io/inject: "false"
+      labels:
+        app.kubernetes.io/name: {{ include "seldon-deploy.name" . }}-ui
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: ui-container
+          image: "{{ .Values.ui.image }}"
+          imagePullPolicy: {{ .Values.ui.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+            # - name: metrics
+            #   containerPort: 8001
+            #   protocol: TCP
+          env:
+            {{- range $key, $value := .Values.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- if and .Values.metadata.pg.secret .Values.metadata.pg.enabled }}
+            - name: "SESSION_PG_ENABLED"
+              value: "true"
+            - name: "SESSION_PG_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metadata.pg.secret }}
+                  key: host
+            - name: "SESSION_PG_PORT"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metadata.pg.secret }}
+                  key: port
+            - name: "SESSION_PG_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metadata.pg.secret }}
+                  key: user
+            - name: "SESSION_PG_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metadata.pg.secret }}
+                  key: password
+            - name: "SESSION_PG_DBNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metadata.pg.secret }}
+                  key: dbname
+            - name: "SESSION_PG_SSLMODE"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metadata.pg.secret }}
+                  key: sslmode
+            {{- end}}
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: http
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          volumeMounts:
+            - name: custom-theme
+              mountPath: "/app/custom-theme"
+{{- if .Values.featureFlags.configMap }}
+            - name: feature-flags
+              mountPath: /app/feature-flags
+{{- end}}
+      volumes:
+        - name: custom-theme
+          secret:
+            secretName: seldon-deploy-custom-theme
+            optional: true
+{{- if .Values.featureFlags.configMap }}
+        - name: feature-flags
+          configMap:
+            defaultMode: 420
+            name: {{ .Values.featureFlags.configMap }}
+{{- end }}
+      serviceAccount: {{ include "seldon-deploy.serviceAccountName" . }}
+      serviceAccountName: {{ include "seldon-deploy.serviceAccountName" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+{{- if .Values.ui.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.ui.imagePullSecrets | nindent 8 }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seldon-deploy-config
+data:
+  prometheusSeldonUrl: {{ .Values.prometheus.seldon.url }}
+{{- if .Values.prometheus.seldon.resourceMetricsUrl }}
+  prometheusSeldonResourceUrl: {{ .Values.prometheus.seldon.resourceMetricsUrl }}
+{{- else }}
+  prometheusSeldonResourceUrl: {{ .Values.prometheus.seldon.url }}
+{{- end }}
+  prometheusNamespaceMetricName: {{ .Values.prometheus.seldon.namespaceMetricName }}
+  prometheusActiveModelsNamespaceMetricName: {{ .Values.prometheus.seldon.activeModelsNamespaceMetricName }}
+  prometheusServiceMetricName: {{ .Values.prometheus.seldon.serviceMetricName }}
+  elasticsearchUrl: {{ .Values.elasticsearch.url }}
+  argocdEnabled: {{ .Values.gitops.argocd.enabled | quote}}
+  skipVerifyGit: '{{ .Values.gitops.git.skipVerifyGit }}'
+  skipVerifyHttpCalls: '{{ .Values.skipVerifyHttpCalls }}'
+  seldonIngressService: {{ .Values.ingressGateway.seldonIngressService }}
+  ingressNamespace: {{ .Values.ingressGateway.ingressNamespace }}
+  seldonCurlForm: {{ .Values.seldon.curlForm | quote }}
+  seldonTensorflowCurlForm: {{ .Values.seldon.tensorFlowCurlForm | quote }}
+  seldonRequestForm: {{ .Values.seldon.seldonRequestForm | quote }}
+  seldonTensorflowRequestForm: {{ .Values.seldon.tensorflowRequestForm | quote }}
+  seldonV2RequestForm: {{ .Values.seldon.v2RequestForm | quote }}
+  seldonExplainForm: {{ .Values.seldon.explainForm | quote }}
+  seldonTensorflowExplainForm: {{ .Values.seldon.tensorflowExplainForm | quote }}
+  seldonV2ExplainForm: {{ .Values.seldon.v2ExplainForm | quote }}  
+  seldonProtocol: {{ .Values.seldon.protocol | quote }}
+  seldonCoreV2Protocol: {{ .Values.seldonCoreV2.protocol | quote }}
+  seldonCoreV2CurlForm: {{ .Values.seldonCoreV2.curlForm | quote }}
+  seldonCoreV2RequestForm: {{ .Values.seldonCoreV2.requestForm | quote }}
+  seldonCoreV2ExplainForm: {{ .Values.seldonCoreV2.explainForm | quote }}
