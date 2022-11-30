@@ -79,7 +79,6 @@ ingress:
 
 resources:
   limits:
-    cpu: 800m
     memory: 800Mi
   requests:
     cpu: 100m
@@ -211,7 +210,7 @@ prometheus:
 
 
 elasticsearch:
-  url: "https://elasticsearch-opendistro-es-client-service.seldon-logs.svc.cluster.local:9200"
+  url: "https://opensearch-cluster-master.seldon-logs.svc.cluster.local:9200"
   #enable below for elastic with user and password
   basicAuth: true
   secret:
@@ -232,7 +231,7 @@ requestLogger:
   replicas: 1
   imagePullPolicy: IfNotPresent
   elasticsearch:
-    host: "elasticsearch-opendistro-es-client-service.seldon-logs.svc.cluster.local"
+    host: "opensearch-cluster-master.seldon-logs.svc.cluster.local"
     port: "9200"
     protocol: "https"
     #jwtSecretName: "jwt-seldon"
@@ -257,7 +256,6 @@ requestLogger:
     broker: "default"
   resources:
     limits:
-      cpu: 600m
       memory: 500Mi
     requests:
       cpu: 100m
