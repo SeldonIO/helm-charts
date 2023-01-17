@@ -19,6 +19,11 @@ security:
         serverCaPath: /tmp/certs/cps/ca.crt
   kafka:
     protocol: PLAINTEXT
+    sasl:
+      client:
+        username: seldon
+        secret:
+        passwordPath: /tmp/sasl/kafka/client/password
     ssl:
       client:
         secret:
@@ -74,7 +79,7 @@ hodometer:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-hodometer
-    tag: 2.0.0
+    tag: 2.1.0
   logLevel: info
   metricsLevel: feature
   extraPublishUrls: ""
@@ -107,7 +112,7 @@ modelgateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-modelgateway
-    tag: 2.0.0
+    tag: 2.1.0
   workers: 8
   resources:
     cpu: 100m
@@ -123,7 +128,7 @@ pipelinegateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-pipelinegateway
-    tag: 2.0.0
+    tag: 2.1.0
   resources:
     cpu: 100m
     memory: 1G
@@ -138,7 +143,7 @@ dataflow:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-dataflow-engine
-    tag: 2.0.0
+    tag: 2.1.0
   cores: 4
   resources:
     cpu: 100m
@@ -154,7 +159,7 @@ controller:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldonv2-controller
-    tag: 2.0.0
+    tag: 2.1.0
   resources:
     cpu: 10m
     memory: 64Mi
@@ -169,7 +174,7 @@ envoy:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-envoy
-    tag: 2.0.0
+    tag: 2.1.0
   resources:
     cpu: 100m
     memory: 128Mi
@@ -186,7 +191,7 @@ scheduler:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-scheduler
-    tag: 2.0.0
+    tag: 2.1.0
   resources:
     cpu: 100m
     memory: 1Gi
@@ -213,7 +218,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-rclone
-      tag: 2.0.0
+      tag: 2.1.0
     resources:
       cpu: 50m
       memory: 128Mi
@@ -223,7 +228,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-agent
-      tag: 2.0.0
+      tag: 2.1.0
     overcommitPercentage: "10"
     scalingStatsPeriodSeconds: "20"
     modelInferenceLagThreshold: "30"
@@ -237,7 +242,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/mlserver
-      tag: 1.2.0
+      tag: 1.2.3
     serverCapabilities: "mlserver,alibi-detect,alibi-explain,huggingface,lightgbm,mlflow,python,sklearn,spark-mlib,xgboost"
     modelVolumeStorage: 1Gi
     resources:
@@ -249,7 +254,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: nvcr.io
       repository: nvidia/tritonserver
-      tag: 22.05-py3
+      tag: 22.11-py3
     serverCapabilities: "triton,dali,fil,onnx,openvino,python,pytorch,tensorflow,tensorrt"
     modelVolumeStorage: 1Gi
     resources:
