@@ -646,6 +646,12 @@ spec:
           value: '{{ .Values.security.kafka.ssl.client.crtPath }}'
         - name: SELDON_TLS_CLIENT_CA_PATH
           value: '{{ .Values.security.kafka.ssl.client.caPath }}'
+        - name: SELDON_SASL_USERNAME
+          value: '{{ .Values.security.kafka.sasl.client.username }}'
+        - name: SELDON_SASL_SECRET
+          value: '{{ .Values.security.kafka.sasl.client.secret }}'
+        - name: SELDON_SASL_PASSWORD_PATH
+          value: '{{ .Values.security.kafka.sasl.client.passwordPath }}'
         - name: SELDON_TLS_BROKER_SECRET
           value: '{{ .Values.security.kafka.ssl.client.brokerValidationSecret }}'
         - name: SELDON_TLS_BROKER_CA_PATH
@@ -879,6 +885,12 @@ spec:
           value: '{{ .Values.security.kafka.ssl.client.crtPath }}'
         - name: KAFKA_CLIENT_TLS_CA_LOCATION
           value: '{{ .Values.security.kafka.ssl.client.caPath }}'
+        - name: KAFKA_CLIENT_SASL_USERNAME
+          value: '{{ .Values.security.kafka.sasl.client.username }}'
+        - name: KAFKA_CLIENT_SASL_SECRET_NAME
+          value: '{{ .Values.security.kafka.sasl.client.secret }}'
+        - name: KAFKA_CLIENT_SASL_PASSWORD_LOCATION
+          value: '{{ .Values.security.kafka.sasl.client.passwordPath }}'
         - name: KAFKA_BROKER_TLS_SECRET_NAME
           value: '{{ .Values.security.kafka.ssl.client.brokerValidationSecret }}'
         - name: KAFKA_BROKER_TLS_CA_LOCATION
@@ -979,6 +991,12 @@ spec:
           value: '{{ .Values.security.kafka.ssl.client.crtPath }}'
         - name: KAFKA_CLIENT_TLS_CA_LOCATION
           value: '{{ .Values.security.kafka.ssl.client.caPath }}'
+        - name: KAFKA_CLIENT_SASL_USERNAME
+          value: '{{ .Values.security.kafka.sasl.client.username }}'
+        - name: KAFKA_CLIENT_SASL_SECRET_NAME
+          value: '{{ .Values.security.kafka.sasl.client.secret }}'
+        - name: KAFKA_CLIENT_SASL_PASSWORD_LOCATION
+          value: '{{ .Values.security.kafka.sasl.client.passwordPath }}'
         - name: KAFKA_BROKER_TLS_SECRET_NAME
           value: '{{ .Values.security.kafka.ssl.client.brokerValidationSecret }}'
         - name: KAFKA_BROKER_TLS_CA_LOCATION
@@ -1362,6 +1380,8 @@ spec:
         value: "1"
       - name: MLSERVER_LOAD_MODELS_AT_STARTUP
         value: "false"
+      - name: MLSERVER_GRPC_MAX_MESSAGE_LENGTH
+        value: "104857600"
       image: '{{ .Values.serverConfig.mlserver.image.registry }}/{{ .Values.serverConfig.mlserver.image.repository
         }}:{{ .Values.serverConfig.mlserver.image.tag }}'
       imagePullPolicy: '{{ .Values.serverConfig.mlserver.image.pullPolicy }}'
