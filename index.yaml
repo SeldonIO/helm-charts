@@ -350,6 +350,15 @@ entries:
     version: 0.4.0-rc2
   seldon-deploy:
   - apiVersion: v2
+    appVersion: 2.0.1
+    created: "2023-02-16T14:46:59.93638745Z"
+    description: A Helm chart for Kubernetes
+    digest: 36ee94e55a1b16b1c91802915b7b47aff9d4697c68d4630b7ae0217d6f287042
+    name: seldon-deploy
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-deploy-2.0.1/seldon-deploy-2.0.1.tgz
+    version: 2.0.1
+  - apiVersion: v2
     appVersion: 2.0.0
     created: "2022-11-30T14:12:59.50306754Z"
     description: A Helm chart for Kubernetes
@@ -376,4 +385,4 @@ entries:
     urls:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-deploy-2.0.0-rc3/seldon-deploy-2.0.0-rc3.tgz
     version: 2.0.0-rc3
-generated: "2023-02-03T18:43:50.107487302Z"
+generated: "2023-02-16T14:46:59.936595254Z"
