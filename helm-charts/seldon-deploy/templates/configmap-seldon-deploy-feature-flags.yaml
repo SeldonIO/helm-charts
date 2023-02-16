@@ -4,5 +4,9 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.featureFlags.configMap }}
 data:
-  flags: '[{ "ID": "USER_MANAGEMENT_ENABLED", "Value": "true" }, { "ID": "SELDON_PIPELINES_ENABLED", "Value": "true" }]'
+  flags: |-
+    [
+      { "ID": "USER_MANAGEMENT_ENABLED", "Value": "true" },
+      { "ID": "SELDON_PIPELINES_ENABLED", "Value": "{{ .Values.seldonCoreV2.enabled }}" }
+    ]
 {{- end -}}
