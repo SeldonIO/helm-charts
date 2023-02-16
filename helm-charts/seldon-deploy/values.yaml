@@ -226,7 +226,7 @@ elasticsearch:
 #detectors are created in the namespace requestLogger.namespace.name so rbac is created there
 requestLogger:
   create: true
-  image: seldonio/metronome:1.3.1
+  image: seldonio/metronome:1.4.1
   #increase logger replicas if there are high traffic volumes
   replicas: 1
   imagePullPolicy: IfNotPresent
