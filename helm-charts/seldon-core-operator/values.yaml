@@ -173,7 +173,7 @@ predictor_servers:
   TEMPO_SERVER:
     protocols:
       v2:
-        defaultImageVersion: "1.2.0-slim"
+        defaultImageVersion: "1.3.0.dev3"
         image: seldonio/mlserver
 
 # ## Other

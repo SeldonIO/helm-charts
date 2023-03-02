@@ -114,7 +114,7 @@ batchjobs:
   processor:
     image: seldonio/seldon-core-s2i-python37:1.15.0
   processorV2:
-    image: seldonio/mlserver:1.2.0.dev13-slim
+    image: seldonio/mlserver:1.3.0.dev3
   storageInitializer:
     image: seldonio/rclone-storage-initializer:1.15.0
   pvc:
