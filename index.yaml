@@ -2,6 +2,22 @@ apiVersion: v1
 entries:
   seldon-core-operator:
   - apiVersion: v1
+    appVersion: 1.15.1
+    created: "2023-03-22T13:29:43.669382695Z"
+    description: Seldon Core v1 CRD and controller Helm chart for Kubernetes.
+    digest: 59bf18f9167e667175e453db8088d74dc00e1e40c62cafc22399e01bd52a7d25
+    keywords:
+    - kubernetes
+    - machine-learning
+    name: seldon-core-operator
+    sources:
+    - https://github.com/SeldonIO/seldon-core
+    - https://github.com/SeldonIO/seldon-core/tree/master/helm-charts/seldon-core-operator
+    - https://docs.seldon.io/projects/seldon-core/en/latest/workflow/install.html
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-operator-1.15.1/seldon-core-operator-1.15.1.tgz
+    version: 1.15.1
+  - apiVersion: v1
     appVersion: 1.15.0
     created: "2022-12-06T19:19:56.171362373Z"
     description: Seldon Core v1 CRD and controller Helm chart for Kubernetes.
@@ -433,4 +449,4 @@ entries:
     urls:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-deploy-2.0.0-rc3/seldon-deploy-2.0.0-rc3.tgz
     version: 2.0.0-rc3
-generated: "2023-03-14T10:18:33.178094251Z"
+generated: "2023-03-22T13:29:43.669468196Z"
