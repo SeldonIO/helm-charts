@@ -13,6 +13,8 @@ kafka:
 
 jaeger-all-in-one:
   enabled: true
+  service:
+    type: LoadBalancer
   
 # We need to remove retention so the current latest helm does not add cmd line args 2.2.2 can't handle
 # https://github.com/helm/helm/pull/11440 is a pending fix to allow null in sub-charts
@@ -24,6 +26,7 @@ prometheus:
     fullnameOverride: "prometheus"
     service:
       servicePort: 9090
+      type: LoadBalancer
     image:
       repository: quay.io/prometheus/prometheus
       tag: "v2.2.0"
@@ -54,6 +57,9 @@ grafana:
   image:
     repository: seldonio/grafana
     tag: "2.3.0"
+
+  service:
+    type: LoadBalancer
 
 opentelemetry-collector:
   enabled: true
