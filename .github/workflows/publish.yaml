@@ -28,6 +28,14 @@ jobs:
         with:
           version: v3.8.1
 
+      # Needed for scv2 all-in one : https://github.com/helm/chart-releaser-action/issues/74
+      - name: Add helm repos
+        run: |
+          helm repo add kafka https://charts.bitnami.com/bitnami
+          helm repo add prometheus https://prometheus-community.github.io/helm-charts
+          helm repo add grafana https://grafana.github.io/helm-charts
+          helm repo add opentelemetry-collector https://open-telemetry.github.io/opentelemetry-helm-charts
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.0
         env:
