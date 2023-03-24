@@ -5,7 +5,7 @@ maintainers:
 - email: hello@seldon
   name: Seldon Tech Team
 type: application
-version: 0.1
+version: 0.2
 # The version of Seldon Core V2 being installed
 appVersion: 2.3.0
 dependencies:
