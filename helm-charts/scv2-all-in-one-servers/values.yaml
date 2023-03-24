@@ -1,0 +1,16 @@
+servers:
+  mlserver:
+    replicas: 3
+    resources:
+      limits:
+        memory: 2Gi
+      requests:
+        memory: 2Gi
+  triton:
+    replicas: 3
+    resources:
+      limits:
+        memory: 2Gi
+      requests:
+        memory: 2Gi
+    

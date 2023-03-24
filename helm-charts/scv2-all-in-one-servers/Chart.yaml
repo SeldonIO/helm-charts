@@ -1,0 +1,9 @@
+apiVersion: v1
+appVersion: 0.1.0
+description: Seldon Core V2 All-in-One Servers
+keywords:
+- kubernetes
+- machine-learning
+- mlops
+name: scv2-all-in-one-servers
+version: 0.1.0

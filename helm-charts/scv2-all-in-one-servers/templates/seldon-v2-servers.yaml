@@ -1,0 +1,34 @@
+apiVersion: mlops.seldon.io/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    prometheus.io/path: /metrics
+    prometheus.io/port: "9006"
+    prometheus.io/scrape: "true"
+  name: mlserver
+  namespace: '{{ .Release.Namespace }}'
+spec:
+  replicas: {{ .Values.servers.mlserver.replicas }}
+  serverConfig: mlserver
+  podSpec:
+    containers:
+    - name: mlserver
+      resources: {{- .Values.servers.mlserver.resources | toYaml |  nindent 9 }}
+---
+apiVersion: mlops.seldon.io/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    prometheus.io/path: /metrics
+    prometheus.io/port: "9006"
+    prometheus.io/scrape: "true"
+  name: triton
+  namespace: '{{ .Release.Namespace }}'
+spec:
+  replicas: {{ .Values.servers.triton.replicas }}
+  serverConfig: triton
+  podSpec:
+    containers:
+    - name: triton 
+      resources: {{- .Values.servers.triton.resources | toYaml | nindent 9 }}     
+
