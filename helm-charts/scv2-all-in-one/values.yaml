@@ -1,0 +1,226 @@
+kafka:
+  enabled: true
+  
+  image:
+    registry: docker.io
+    repository: bitnami/kafka
+    tag: "2.7.0"
+  zookeeper:
+    registry: docker.io
+    repository: bitnami/zookeeper
+    image:
+      tag: "3.7"
+
+jaeger-all-in-one:
+  enabled: true
+  
+# We need to remove retention so the current latest helm does not add cmd line args 2.2.2 can't handle
+# https://github.com/helm/helm/pull/11440 is a pending fix to allow null in sub-charts
+# however empty string seems to work in this case
+prometheus:
+  enabled: true
+  
+  server:
+    fullnameOverride: "prometheus"
+    service:
+      servicePort: 9090
+    image:
+      repository: quay.io/prometheus/prometheus
+      tag: "v2.2.0"
+    retention: ""
+
+  alertmanager:
+    enabled: false
+
+  kube-state-metrics:
+    enabled: false
+
+  prometheus-node-exporter:
+    enabled: false
+
+  prometheus-pushgateway:
+    enabled: false
+
+  configmapReload:
+    prometheus:
+      enabled: false
+
+grafana:
+  enabled: true
+  
+  initChownData:
+    enabled: false
+
+  image:
+    repository: seldonio/grafana
+    tag: "2.3.0"
+
+opentelemetry-collector:
+  enabled: true
+  
+  fullnameOverride: seldon-collector
+
+  agentCollector:
+    enabled: false
+
+  standaloneCollector:
+    enabled: true
+
+  image:
+    # If you want to use the core image `otel/opentelemetry-collector`, you also need to change `command.name` value to `otelcol`.
+    repository: otel/opentelemetry-collector-contrib
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "0.13.0"
+
+  command:
+    name: otelcontribcol
+    extraArgs: []
+
+  config:
+    exporters:
+      logging: {}
+      jaeger_thrift:
+        url : "http://scv2-all-in-one-jaeger-all-in-one:14268/api/traces"
+      #jaeger:
+      #  endpoint: jaeger-all-in-one.seldon-mesh:14250
+      #  tls:
+      #    insecure: true
+    extensions:
+      # The health_check extension is mandatory for this chart.
+      # Without the health_check extension the collector will fail the readiness and liveliness probes.
+      # The health_check extension can be modified, but should never be removed.
+      health_check: {}
+    processors:
+      batch: {}
+      # If set to null, will be overridden with values based on k8s resource limits
+      memory_limiter: null
+    receivers:
+      jaeger:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:14250
+          thrift_http:
+            endpoint: 0.0.0.0:14268
+          thrift_compact:
+            endpoint: 0.0.0.0:6831
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+      prometheus:
+        config:
+          scrape_configs:
+            - job_name: opentelemetry-collector
+              scrape_interval: 10s
+              static_configs:
+                - targets:
+                    - ${MY_POD_IP}:8888
+      zipkin:
+        endpoint: 0.0.0.0:9411
+    service:
+      telemetry: null
+      extensions: [health_check]
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [logging, jaeger_thrift]
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [logging]
+
+seldon:
+  enabled: true
+          
+seldon-core-v2-setup:
+  opentelemetry:
+    endpoint: seldon-collector:4317
+    enable: true
+    ratio: 1
+
+  hodometer:
+    enabled: false
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/seldon-hodometer
+      tag: 2.3.0
+
+  kafka:
+    debug:
+    bootstrap: scv2-all-in-one-kafka.seldon-mesh:9092
+
+  modelgateway:
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/seldon-modelgateway
+      tag: 2.3.0
+
+  pipelinegateway:
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/seldon-pipelinegateway
+      tag: 2.3.0
+
+  dataflow:
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/seldon-dataflow-engine
+      tag: 2.3.0
+
+  controller:
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/seldonv2-controller
+      tag: 2.3.0
+
+  envoy:
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/seldon-envoy
+      tag: 2.3.0
+
+  scheduler:
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: seldonio/seldon-scheduler
+      tag: 2.3.0
+
+  serverConfig:
+    rclone:
+      image:
+        pullPolicy: IfNotPresent
+        registry: docker.io
+        repository: seldonio/seldon-rclone
+        tag: 2.3.0
+
+    agent:
+      image:
+        pullPolicy: IfNotPresent
+        registry: docker.io
+        repository: seldonio/seldon-agent
+        tag: 2.3.0
+
+    mlserver:
+      image:
+        pullPolicy: IfNotPresent
+        registry: docker.io
+        repository: seldonio/mlserver-sc
+        tag: 2.3.0
+
+    triton:
+      image:
+        pullPolicy: IfNotPresent
+        registry: docker.io
+        repository: seldonio/tritonserver
+        tag: 2.3.0

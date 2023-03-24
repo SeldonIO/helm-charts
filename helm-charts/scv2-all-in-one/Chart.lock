@@ -1,0 +1,21 @@
+dependencies:
+- name: kafka
+  repository: https://charts.bitnami.com/bitnami
+  version: 21.4.0
+- name: prometheus
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 19.7.2
+- name: grafana
+  repository: https://grafana.github.io/helm-charts
+  version: 6.52.4
+- name: opentelemetry-collector
+  repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+  version: 0.4.1
+- name: jaeger-all-in-one
+  repository: ""
+  version: "0.1"
+- name: seldon-core-v2-setup
+  repository: ""
+  version: 0.1.1
+digest: sha256:76a6fa64d226681b1cd3fb862e94b88e3ea8cf592da2870872d5bf3147fee16a
+generated: "2023-03-24T08:10:42.184853492Z"

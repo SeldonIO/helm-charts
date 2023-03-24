@@ -1,0 +1,33 @@
+apiVersion: v2
+name: scv2-all-in-one
+description: Seldon Core V2 all in one
+maintainers:
+- email: hello@seldon
+  name: Seldon Tech Team
+type: application
+version: 0.1
+# The version of Seldon Core V2 being installed
+appVersion: 2.3.0
+dependencies:
+- name: kafka
+  version: 21.4.0
+  repository: https://charts.bitnami.com/bitnami
+  condition: kafka.enabled
+- name: prometheus
+  version: 19.7.2
+  repository: https://prometheus-community.github.io/helm-charts
+  condition: prometheus.enabled
+- name: grafana
+  version: 6.52.4
+  repository: https://grafana.github.io/helm-charts
+  condition: grafana.enabled
+- name: opentelemetry-collector
+  version: 0.4.1
+  repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+  condition: opentelemetry-collector.enabled
+- name: jaeger-all-in-one
+  version: 0.1
+  condition: jaeger-all-in-one.enabled  
+- name: seldon-core-v2-setup
+  version: 0.1.1
+  condition: seldon.enabled  
