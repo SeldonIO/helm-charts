@@ -250,6 +250,9 @@ serverConfig:
     resources:
       cpu: 100m
       memory: 1Gi
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
 
   triton:
     image:
@@ -262,6 +265,9 @@ serverConfig:
     resources:
       cpu: 100m
       memory: 1Gi
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
 
 # For use with service meshes like Istio, which require specific prefixes for
 # the names of ports handling gRPC/HTTP2 traffic.

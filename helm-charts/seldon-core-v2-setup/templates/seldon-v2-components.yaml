@@ -1450,6 +1450,18 @@ spec:
     - configMap:
         name: seldon-tracing
       name: tracing-config-volume
+    {{- with .Values.serverConfig.mlserver.nodeSelector }}
+    nodeSelector:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with .Values.serverConfig.mlserver.affinity }}
+    affinity:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with .Values.serverConfig.mlserver.tolerations }}
+    tolerations:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
   volumeClaimTemplates:
   - name: mlserver-models
     spec:
@@ -1688,6 +1700,18 @@ spec:
         medium: Memory
         sizeLimit: 256Mi
       name: dshm
+    {{- with .Values.serverConfig.triton.nodeSelector }}
+    nodeSelector:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with .Values.serverConfig.triton.affinity }}
+    affinity:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with .Values.serverConfig.triton.tolerations }}
+    tolerations:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
   volumeClaimTemplates:
   - name: triton-models
     spec:
