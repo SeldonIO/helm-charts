@@ -13,18 +13,18 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: 6831
-      targetPort: udp-com-thr
-      protocol: UDP
-      name: udp-com-thr
-    - port: 6832
-      targetPort: udp-bin-thr
-      protocol: UDP
-      name: udp-bin-thr
-    - port: 5775
-      targetPort: udp-bin-thr-o
-      protocol: UDP
-      name: udp-bin-thr-o
+#    - port: 6831
+#      targetPort: udp-com-thr
+#      protocol: UDP
+#      name: udp-com-thr
+#    - port: 6832
+#      targetPort: udp-bin-thr
+#      protocol: UDP
+#      name: udp-bin-thr
+#    - port: 5775
+#      targetPort: udp-bin-thr-o
+#      protocol: UDP
+#      name: udp-bin-thr-o
     - port: 5778
       targetPort: http-configs
       protocol: TCP
