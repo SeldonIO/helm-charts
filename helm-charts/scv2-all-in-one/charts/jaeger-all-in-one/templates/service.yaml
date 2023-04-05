@@ -13,7 +13,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-# UDP points commented out as mixed protocols not allowed for loadbalancers in <1.24 k8s
+# UDP pors commented out as mixed protocols not allowed for loadbalancers in <1.24 k8s
 # At some point can extend chart with two services?
 #    - port: 6831
 #      targetPort: udp-com-thr
