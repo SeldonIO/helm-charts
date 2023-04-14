@@ -9,7 +9,7 @@ metadata:
   namespace: '{{ .Release.Namespace }}'
 spec:
   replicas: {{ .Values.servers.mlserver.replicas }}
-  serverConfig: mlserver
+  serverConfig: mlserver-hostpath
   podSpec:
     containers:
     - name: mlserver
@@ -22,7 +22,7 @@ metadata:
     prometheus.io/path: /metrics
     prometheus.io/port: "9006"
     prometheus.io/scrape: "true"
-  name: triton
+  name: triton-hostpath
   namespace: '{{ .Release.Namespace }}'
 spec:
   replicas: {{ .Values.servers.triton.replicas }}

@@ -6,4 +6,4 @@ keywords:
 - machine-learning
 - mlops
 name: seldon-core-v2-setup
-version: 0.1.1
+version: 0.1.2
