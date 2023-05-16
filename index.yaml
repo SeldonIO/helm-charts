@@ -196,6 +196,19 @@ entries:
     version: 1.15.0-rc1
   seldon-core-v2-crds:
   - apiVersion: v1
+    appVersion: 2.5.0
+    created: "2023-05-16T10:35:18.685134328Z"
+    description: Seldon Core V2 CRDs
+    digest: 6a7d833030154845f6ea864a16e49c645644821f41dd3daa9debaf9a0ffae2d5
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-crds
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-crds-2.5.0/seldon-core-v2-crds-2.5.0.tgz
+    version: 2.5.0
+  - apiVersion: v1
     appVersion: 2.4.0
     created: "2023-04-21T14:36:49.627433133Z"
     description: Seldon Core V2 CRDs
@@ -327,6 +340,19 @@ entries:
     version: 0.4.0-rc2
   seldon-core-v2-servers:
   - apiVersion: v1
+    appVersion: 2.5.0
+    created: "2023-05-16T10:35:18.856390754Z"
+    description: Seldon Core V2 Servers
+    digest: 39db1200d83b2975926732d46e7756ca04a877acf1d67bb543b6e6f49e5fc01d
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-servers
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-servers-2.5.0/seldon-core-v2-servers-2.5.0.tgz
+    version: 2.5.0
+  - apiVersion: v1
     appVersion: 2.4.0
     created: "2023-04-21T14:36:49.796655551Z"
     description: Seldon Core V2 Servers
@@ -457,6 +483,19 @@ entries:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-servers-0.4.0-rc2/seldon-core-v2-servers-0.4.0-rc2.tgz
     version: 0.4.0-rc2
   seldon-core-v2-setup:
+  - apiVersion: v1
+    appVersion: 2.5.0
+    created: "2023-05-16T10:35:19.047422338Z"
+    description: Seldon Core V2 Setup
+    digest: 5e4d5c77d0a61d12c9db2a15c4b6636dc3542e4a77bcee2540765e9ee7b37059
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-setup
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-setup-2.5.0/seldon-core-v2-setup-2.5.0.tgz
+    version: 2.5.0
   - apiVersion: v1
     appVersion: 2.4.0
     created: "2023-04-21T14:36:49.958999156Z"
@@ -633,4 +672,4 @@ entries:
     urls:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-deploy-2.0.0-rc3/seldon-deploy-2.0.0-rc3.tgz
     version: 2.0.0-rc3
-generated: "2023-04-21T14:36:49.959302978Z"
+generated: "2023-05-16T10:35:19.047956778Z"
