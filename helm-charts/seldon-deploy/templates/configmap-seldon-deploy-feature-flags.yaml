@@ -7,6 +7,8 @@ data:
   flags: |-
     [
       { "ID": "USER_MANAGEMENT_ENABLED", "Value": "true" },
+      { "ID": "SELDON_DEPLOYMENTS_ENABLED", "Value": "{{ .Values.seldon.enabled }}" },
+      { "ID": "KNATIVE_SERVICES_ENABLED", "Value": "{{ .Values.seldon.knativeEnabled }}" },
       { "ID": "SELDON_PIPELINES_ENABLED", "Value": "{{ .Values.seldonCoreV2.enabled }}" }
     ]
 {{- end -}}

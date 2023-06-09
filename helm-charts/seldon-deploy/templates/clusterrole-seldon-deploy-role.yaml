@@ -169,6 +169,18 @@ rules:
     verbs:
       - get
   - apiGroups:
+      - security.istio.io
+    resources: 
+      - authorizationpolicies
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
       - v1
     resources:
       - services
@@ -228,5 +240,11 @@ rules:
       - patch
       - update
       - watch
+  - apiGroups:
+      - eventing.knative.dev
+    resources:
+      - brokers
+    verbs:
+      - get
   {{- end }}
 {{- end }}
