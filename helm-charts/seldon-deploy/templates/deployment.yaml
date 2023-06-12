@@ -55,6 +55,12 @@ spec:
             {{- end}}
             - name: "ENABLE_READ_NAMESPACES"
               value: "{{ .Values.rbac.readNamespaces }}"
+            - name: "CORE_V1_CRD_AVAILABLE"
+              value: "{{ .Values.seldon.enabled }}"
+            - name: "CORE_V2_CRD_AVAILABLE"
+              value: "{{ .Values.seldonCoreV2.enabled }}"
+            - name: "KNATIVE_CRD_AVAILABLE"
+              value: "{{ .Values.seldon.knativeEnabled }}"
             - name: "LOADTEST_IMAGE"
               value: "{{ .Values.loadtest.image }}"
             - name: "ALIBI_DETECT_SERVER_IMAGE"
@@ -70,7 +76,7 @@ spec:
             - name: "WORKFLOW_SECURITY_CONTEXT_RUN_AS_USER"
               value: "{{ .Values.workflow.securityContext.runAsUser }}"
             - name: "WORKFLOW_SECURITY_CONTEXT_FS_GROUP"
-              value: "{{ .Values.workflow.securityContext.fsGroup }}"            
+              value: "{{ .Values.workflow.securityContext.fsGroup }}"
             {{- if .Values.gitops.fileFormat }}
             - name: "GITOPS_FORMAT"
               value: "{{ .Values.gitops.fileFormat }}"
@@ -82,6 +88,10 @@ spec:
             {{- if .Values.requestLogger.namespace.name }}
             - name: "REQUEST_LOGGER_NAMESPACE"
               value: "{{ .Values.requestLogger.namespace.name }}"
+            {{- end}}
+            {{- if .Values.requestLogger.trigger.broker }}
+            - name: "KNATIVE_BROKER"
+              value: "{{ .Values.requestLogger.trigger.broker }}"
             {{- end}}
             {{- if and .Values.metadata.pg.secret .Values.metadata.pg.enabled }}
             - name: "METADATA_PG_ENABLED"
@@ -181,12 +191,6 @@ spec:
             - name: "EXTERNAL_PROTOCOL"
               value: "{{ .Values.external.protocol }}"
             {{- end }}
-            - name: "SELDONDEPLOYMENTS"
-              value: "{{ .Values.seldon.enabled }}"
-            - name: "SELDONPIPELINES"
-              value: "{{ .Values.seldonCoreV2.enabled }}"
-            - name: "KNATIVE"
-              value: "{{ .Values.seldon.knativeEnabled }}"
             {{- if .Values.virtualService.create }}
             - name: "EXTERNAL_PREFIX"
               value: "{{ .Values.virtualService.prefix }}"

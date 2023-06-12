@@ -50,7 +50,7 @@ env:
   # RESOURCE_URI: "" # resource at which access is requested
   # APP_ANALYTICS_TOKEN: "" # if enableAppAnalytics enabled use token
   SELDON_MANAGED_INFRA: "false"
-  ALERTMANAGER_URL: "http://seldon-monitoring-alertmanager.seldon-system:9093/api/v1/alerts"
+  ALERTMANAGER_URL: "http://seldon-monitoring-alertmanager.seldon-monitoring:9093/api/v1/alerts"
 
   # Cache duration for listing visible namespaces to Deploy. Higher values improve performance on common operations
   # around listing deployments, but reduce responsiveness to adding new namespaces. Set the value to "0"  to disable
@@ -97,7 +97,7 @@ gitops:
     skipVerifyGit: true
     webhook:
       service:
-        create: true
+        create: false
         loadBalancerSourceRanges: {}
   fileFormat: "json"
   argocd:
@@ -112,18 +112,18 @@ workflow:
 
 batchjobs:
   processor:
-    image: seldonio/seldon-core-s2i-python37:1.15.0
+    image: seldonio/seldon-core-s2i-python37:1.16.0
   processorV2:
-    image: seldonio/mlserver:1.2.0.dev13-slim
+    image: seldonio/mlserver:1.3.1-slim
   storageInitializer:
-    image: seldonio/rclone-storage-initializer:1.15.0
+    image: seldonio/rclone-storage-initializer:1.16.0
   pvc:
     defaultSize: 1Gi
 
 seldon:
   protocol: "http"
-  enabled: true
-  knativeEnabled: true
+  enabled: false
+  knativeEnabled: false
   #Below are templates that can be changed to adjust how requests are made and what curl option is shown to user.
   #Change ip to hostname on AWS. Or put real cluster IP after install. Shown to user for calls outside cluster.
   curlForm: |
@@ -144,7 +144,7 @@ seldon:
 
 seldonCoreV2:
   protocol: "http"
-  enabled: true
+  enabled: false
   curlForm: |
     CLUSTER_IP=$(kubectl -n {{ .IngressNamespace }} get service {{ .IngressServiceName }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')<br>
     curl -v {{ .SeldonProtocol }}://$CLUSTER_IP/v2/models/{{ .ModelName }}/infer -H "Content-Type: application/json" -H "seldon-model: {{ .ModelName }}.pipeline" -d '{{ .Payload }}'
@@ -174,7 +174,7 @@ rbac:
   #for single namespace mode with just namespaced roles, turn off cluserWide and turn off readNamespaces
   readNamespaces: true
   nsLabelsAuth:
-    enabled: true
+    enabled: false
   opa:
     enabled: false
     configMap: seldon-deploy-policies
@@ -196,7 +196,7 @@ skipVerifyHttpCalls: true
 
 prometheus:
   seldon:
-    url: "http://seldon-monitoring-prometheus.seldon-system:9090/api/v1/"
+    url: "http://seldon-monitoring-prometheus.seldon-monitoring:9090/api/v1/"
     # resource metrics may come from different prometheus than req metrics - set only if different
     # resourceMetricsUrl: ""
     # see https://github.com/openshift/cluster-monitoring-operator/issues/768
@@ -226,7 +226,7 @@ elasticsearch:
 #detectors are created in the namespace requestLogger.namespace.name so rbac is created there
 requestLogger:
   create: true
-  image: seldonio/metronome:1.4.1
+  image: seldonio/metronome:1.5.1
   #increase logger replicas if there are high traffic volumes
   replicas: 1
   imagePullPolicy: IfNotPresent
@@ -247,12 +247,30 @@ requestLogger:
     group_id: metronome
     auto_offset_reset: earliest
 
+    protocol: PLAINTEXT
+    sasl:
+      mechanism: SCRAM-SHA-512
+      client:
+        username: seldon
+        secret:
+        passwordPath: /tmp/sasl/kafka/client/password
+    ssl:
+      client:
+        secret:
+        keyPath: /tmp/certs/kafka/client/tls.key
+        crtPath: /tmp/certs/kafka/client/tls.crt
+        caPath: /tmp/certs/kafka/client/ca.crt
+        brokerValidationSecret:
+        brokerCaPath: /tmp/certs/kafka/broker/ca.crt
+        endpointIdentificationAlgorithm:
+
   # env:
     # MAX_PAYLOAD_BYTES: "300000"
   deployHost: "http://seldon-deploy.seldon-system/seldon-deploy/api/v1alpha1"
   authSecret: ""
   trigger:
     apiVersion: "eventing.knative.dev/v1"
+    create: true
     broker: "default"
   resources:
     limits:
