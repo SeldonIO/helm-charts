@@ -1,7 +1,8 @@
 # helm-charts
 Seldon Helm Charts
 
-Note, this repository is for hosting the released charts only. All PRs and issues should go into [Seldon Core](https://github.com/SeldonIO/seldon-core) repository for our OSS products and into support tickets for enterprise products.
+Note, this repository is for hosting the released charts only. 
+All PRs and issues should go into [Seldon Core](https://github.com/SeldonIO/seldon-core) repository for our OSS products and into support tickets for enterprise products.
 
 ## Usage 
 
