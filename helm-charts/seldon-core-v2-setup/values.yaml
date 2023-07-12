@@ -69,9 +69,13 @@ security:
           caPath: /tmp/certs/ddc/ca.crt
           serverCaPath: /tmp/certs/dds/ca.crt
 
+# A list of image pull secrets
+imagePullSecrets:
+
 opentelemetry:
-  endpoint: seldon-collector:4317
-  enable: true
+  # This will need to be customized to your open telemetry installation endpoint
+  endpoint: seldon-collector.seldon-mesh:4317
+  disable: false
   ratio: 1
 
 hodometer:
@@ -80,7 +84,7 @@ hodometer:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-hodometer
-    tag: 2.5.0
+    tag: 2.6.0
   logLevel: info
   metricsLevel: feature
   extraPublishUrls: ""
@@ -95,6 +99,7 @@ hodometer:
 
 kafka:
   debug:
+  # This will need to be customized to your kafka installation broker endpoint
   bootstrap: seldon-kafka-bootstrap.seldon-mesh:9092
   topicPrefix: seldon
   consumer:
@@ -115,7 +120,7 @@ modelgateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-modelgateway
-    tag: 2.5.0
+    tag: 2.6.0
   workers: 8
   resources:
     cpu: 100m
@@ -131,7 +136,7 @@ pipelinegateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-pipelinegateway
-    tag: 2.5.0
+    tag: 2.6.0
   resources:
     cpu: 100m
     memory: 1G
@@ -146,7 +151,7 @@ dataflow:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-dataflow-engine
-    tag: 2.5.0
+    tag: 2.6.0
   cores: 4
   resources:
     cpu: 100m
@@ -158,11 +163,12 @@ dataflow:
     runAsNonRoot: true
 
 controller:
+  clusterwide: false
   image:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldonv2-controller
-    tag: 2.5.0
+    tag: 2.6.0
   resources:
     cpu: 10m
     memory: 64Mi
@@ -177,7 +183,7 @@ envoy:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-envoy
-    tag: 2.5.0
+    tag: 2.6.0
   resources:
     cpu: 100m
     memory: 128Mi
@@ -194,7 +200,7 @@ scheduler:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-scheduler
-    tag: 2.5.0
+    tag: 2.6.0
   resources:
     cpu: 100m
     memory: 1Gi
@@ -221,7 +227,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-rclone
-      tag: 2.5.0
+      tag: 2.6.0
     resources:
       cpu: 50m
       memory: 128Mi
@@ -231,7 +237,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-agent
-      tag: 2.5.0
+      tag: 2.6.0
     overcommitPercentage: "10"
     scalingStatsPeriodSeconds: "20"
     modelInferenceLagThreshold: "30"
@@ -245,7 +251,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/mlserver
-      tag: 1.3.2
+      tag: 1.3.5
     serverCapabilities: "mlserver,alibi-detect,alibi-explain,huggingface,lightgbm,mlflow,python,sklearn,spark-mlib,xgboost"
     modelVolumeStorage: 1Gi
     resources:
@@ -264,7 +270,9 @@ serverConfig:
       cpu: 100m
       memory: 1Gi
 
+services:
 # For use with service meshes like Istio, which require specific prefixes for
 # the names of ports handling gRPC/HTTP2 traffic.
 # For Istio, use 'grpc-' or 'http2-', noting the trailing '-'.
-serviceGRPCPrefix: ""
+  serviceGRPCPrefix: ""
+  defaultServiceType: LoadBalancer
