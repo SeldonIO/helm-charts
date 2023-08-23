@@ -29,5 +29,8 @@ dependencies:
   version: 0.1
   condition: jaeger-all-in-one.enabled  
 - name: seldon-core-v2-setup
-  version: 0.1.1
+  version: 2.7.0-rc1
+  condition: seldon.enabled  
+- name: seldon-core-v2-runtime
+  version: 2.7.0-rc1
   condition: seldon.enabled  

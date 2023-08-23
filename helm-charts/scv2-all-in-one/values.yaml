@@ -141,20 +141,23 @@ opentelemetry-collector:
 
 seldon:
   enabled: true
+
+seldon-core-v2-runtime:
+  hodometer:
+    disable: true
           
 seldon-core-v2-setup:
   opentelemetry:
     endpoint: seldon-collector:4317
-    enable: true
+    disable: false
     ratio: 1
 
   hodometer:
-    enabled: false
     image:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-hodometer
-      tag: 2.3.0
+      tag: 2.7.0-rc1
 
   kafka:
     debug:
@@ -165,42 +168,42 @@ seldon-core-v2-setup:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-modelgateway
-      tag: 2.3.0
+      tag: 2.7.0-rc1
 
   pipelinegateway:
     image:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-pipelinegateway
-      tag: 2.3.0
+      tag: 2.7.0-rc1
 
   dataflow:
     image:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-dataflow-engine
-      tag: 2.3.0
+      tag: 2.7.0-rc1
 
   controller:
     image:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldonv2-controller
-      tag: 2.3.0
+      tag: 2.7.0-rc1
 
   envoy:
     image:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-envoy
-      tag: 2.3.0
+      tag: 2.7.0-rc1
 
   scheduler:
     image:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-scheduler
-      tag: 2.3.0
+      tag: 2.7.0-rc1
 
   serverConfig:
     rclone:
@@ -208,25 +211,25 @@ seldon-core-v2-setup:
         pullPolicy: IfNotPresent
         registry: docker.io
         repository: seldonio/seldon-rclone
-        tag: 2.3.0
+        tag: 2.7.0-rc1
 
     agent:
       image:
         pullPolicy: IfNotPresent
         registry: docker.io
         repository: seldonio/seldon-agent
-        tag: 2.3.0
+        tag: 2.7.0-rc1
 
     mlserver:
       image:
         pullPolicy: IfNotPresent
         registry: docker.io
         repository: seldonio/mlserver-sc
-        tag: 2.3.0
+        tag: 2.7.0-rc1
 
     triton:
       image:
         pullPolicy: IfNotPresent
         registry: docker.io
         repository: seldonio/tritonserver
-        tag: 2.3.0
+        tag: 2.7.0-rc1
