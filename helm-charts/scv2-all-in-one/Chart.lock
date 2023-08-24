@@ -16,6 +16,9 @@ dependencies:
   version: "0.1"
 - name: seldon-core-v2-setup
   repository: ""
-  version: 0.1.1
-digest: sha256:76a6fa64d226681b1cd3fb862e94b88e3ea8cf592da2870872d5bf3147fee16a
-generated: "2023-03-24T11:34:43.869269725Z"
+  version: 2.7.0-rc1
+- name: seldon-core-v2-runtime
+  repository: ""
+  version: 2.7.0-rc1
+digest: sha256:80fb0245da5278d1c509c403fbcceb00c303e3afa8d5586f44a8852937308d32
+generated: "2023-08-24T16:12:27.777347139+01:00"
