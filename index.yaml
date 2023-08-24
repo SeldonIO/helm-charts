@@ -3,6 +3,48 @@ entries:
   scv2-all-in-one:
   - apiVersion: v2
     appVersion: 2.3.0
+    created: "2023-08-24T15:22:37.142062208Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 21.4.0
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 19.7.2
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.52.4
+    - condition: opentelemetry-collector.enabled
+      name: opentelemetry-collector
+      repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+      version: 0.4.1
+    - condition: jaeger-all-in-one.enabled
+      name: jaeger-all-in-one
+      repository: ""
+      version: "0.1"
+    - condition: seldon.enabled
+      name: seldon-core-v2-setup
+      repository: ""
+      version: 2.7.0-rc1
+    - condition: seldon.enabled
+      name: seldon-core-v2-runtime
+      repository: ""
+      version: 2.7.0-rc1
+    description: Seldon Core V2 all in one
+    digest: a103a2a6b0fd9eb4280d1ff936a1e1dbd52a64f8ff06ec2990075435dc143ff1
+    maintainers:
+    - email: hello@seldon
+      name: Seldon Tech Team
+    name: scv2-all-in-one
+    type: application
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/scv2-all-in-one-0.3.0/scv2-all-in-one-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 2.3.0
     created: "2023-04-05T18:01:52.296513571Z"
     dependencies:
     - condition: kafka.enabled
@@ -775,4 +817,4 @@ entries:
     urls:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-deploy-2.0.0-rc3/seldon-deploy-2.0.0-rc3.tgz
     version: 2.0.0-rc3
-generated: "2023-08-23T10:12:12.510449731Z"
+generated: "2023-08-24T15:22:37.142341811Z"
