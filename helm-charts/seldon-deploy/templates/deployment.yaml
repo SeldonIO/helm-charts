@@ -73,6 +73,14 @@ spec:
               value: "{{ .Values.batchjobs.storageInitializer.image }}"
             - name: "BATCHJOBS_PVC_DEFAULT_SIZE"
               value: "{{ .Values.batchjobs.pvc.defaultSize }}"
+            - name: "BATCHJOBS_REQUESTS_CPU"
+              value: "{{ .Values.batchjobs.resources.requests.cpu }}"
+            - name: "BATCHJOBS_LIMITS_CPU"
+              value: "{{ .Values.batchjobs.resources.limits.cpu }}"
+            - name: "BATCHJOBS_REQUESTS_MEMORY"
+              value: "{{ .Values.batchjobs.resources.requests.memory }}"
+            - name: "BATCHJOBS_LIMITS_MEMORY"
+              value: "{{ .Values.batchjobs.resources.limits.memory }}"
             - name: "WORKFLOW_SECURITY_CONTEXT_RUN_AS_USER"
               value: "{{ .Values.workflow.securityContext.runAsUser }}"
             - name: "WORKFLOW_SECURITY_CONTEXT_FS_GROUP"
@@ -330,6 +338,10 @@ spec:
             {{- if .Values.applicationLogs.elasticPodNameField }}
             - name: "APP_LOGS_ELASTIC_POD_NAME_FIELD"
               value: "{{ .Values.applicationLogs.elasticPodNameField }}"
+            {{- end}}
+            {{- if .Values.inferenceLogs.maxPayloadsPerRequest }}
+            - name: "INFERENCE_LOGS_MAX_PAYLOADS_PER_REQUEST"
+              value: "{{ .Values.inferenceLogs.maxPayloadsPerRequest }}"
             {{- end}}
           livenessProbe:
             httpGet:

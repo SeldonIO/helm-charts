@@ -122,10 +122,12 @@ spec:
             - name: METRONOME_SERVER_KAFKA_CONSUMER_SECURITY_PROTOCOL
               value: {{ .Values.requestLogger.kafka_consumer.protocol | quote }}
 {{- if (eq .Values.requestLogger.kafka_consumer.protocol "SSL") }}
+{{- if .Values.requestLogger.kafka_consumer.ssl.client.secret }}
             - name: METRONOME_SERVER_KAFKA_CONSUMER_SSL_KEY_LOCATION
               value: {{ .Values.requestLogger.kafka_consumer.ssl.client.keyPath | quote }}
             - name: METRONOME_SERVER_KAFKA_CONSUMER_SSL_CERTIFICATE_LOCATION
               value: {{ .Values.requestLogger.kafka_consumer.ssl.client.crtPath | quote }}
+{{- end }}
 {{- if .Values.requestLogger.kafka_consumer.ssl.client.brokerValidationSecret }}
             - name: METRONOME_SERVER_KAFKA_CONSUMER_SSL_CA_LOCATION
               value: {{ .Values.requestLogger.kafka_consumer.ssl.client.brokerCaPath | quote }}
@@ -137,14 +139,47 @@ spec:
 {{- if (eq .Values.requestLogger.kafka_consumer.protocol "SASL_SSL") }}
             - name: METRONOME_SERVER_KAFKA_CONSUMER_SASL_MECHANISM
               value: {{ .Values.requestLogger.kafka_consumer.sasl.mechanism | quote }}
+{{- if (eq .Values.requestLogger.kafka_consumer.sasl.mechanism "OAUTHBEARER") }}
+            - name: METRONOME_SERVER_KAFKA_CONSUMER_SASL_OAUTHBEARER_METHOD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.requestLogger.kafka_consumer.sasl.client.secret | quote }}
+                  key: method
+            - name: METRONOME_SERVER_KAFKA_CONSUMER_SASL_OAUTHBEARER_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.requestLogger.kafka_consumer.sasl.client.secret | quote }}
+                  key: "client_id"
+            - name: METRONOME_SERVER_KAFKA_CONSUMER_SASL_OAUTHBEARER_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.requestLogger.kafka_consumer.sasl.client.secret | quote }}
+                  key: "client_secret"
+            - name: METRONOME_SERVER_KAFKA_CONSUMER_SASL_OAUTHBEARER_TOKEN_ENDPOINT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.requestLogger.kafka_consumer.sasl.client.secret | quote }}
+                  key: "token_endpoint_url"
+            - name: METRONOME_SERVER_KAFKA_CONSUMER_SASL_OAUTHBEARER_EXTENSIONS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.requestLogger.kafka_consumer.sasl.client.secret | quote }}
+                  key: "extensions"
+            - name: METRONOME_SERVER_KAFKA_CONSUMER_SASL_OAUTHBEARER_SCOPE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.requestLogger.kafka_consumer.sasl.client.secret | quote }}
+                  key: "scope"
+{{- else }}
             - name: METRONOME_SERVER_KAFKA_CONSUMER_SASL_USERNAME
               value: {{ .Values.requestLogger.kafka_consumer.sasl.client.username | quote }}
 {{- if .Values.requestLogger.kafka_consumer.sasl.client.secret }}
             - name: METRONOME_SERVER_KAFKA_CONSUMER_SASL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.requestLogger.kafka_consumer.sasl.client.secret | quote}}
-                  key: {{ base .Values.requestLogger.kafka_consumer.sasl.client.passwordPath | quote}}
+                  name: {{ .Values.requestLogger.kafka_consumer.sasl.client.secret | quote }}
+                  key: {{ base .Values.requestLogger.kafka_consumer.sasl.client.passwordPath | quote }}
+{{- end }}
 {{- end }}
 {{- if .Values.requestLogger.kafka_consumer.ssl.client.brokerValidationSecret }}
             - name: METRONOME_SERVER_KAFKA_CONSUMER_SSL_CA_LOCATION
