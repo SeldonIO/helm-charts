@@ -7,6 +7,24 @@ metadata:
   namespace: '{{ .Release.Namespace }}'
 rules:
   - apiGroups:
+      - argoproj.io
+    resources:
+      - workflows
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - 'apiextensions.k8s.io'
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
       - ''
     resources:
       - services
@@ -48,6 +66,8 @@ rules:
       - horizontalpodautoscalers/status
     verbs:
       - get
+      - patch
+      - update
   - apiGroups:
       - machinelearning.seldon.io
     resources:
@@ -89,7 +109,7 @@ rules:
       - list
       - patch
       - update
-      - watch  
+      - watch
   - apiGroups:
       - mlops.seldon.io
     resources:
@@ -138,8 +158,18 @@ rules:
       - virtualservices/status
     verbs:
       - get
+  - apiGroups:
+      - security.istio.io
+    resources:
+      - authorizationpolicies
+    verbs:
+      - create
+      - delete
+      - get
+      - list
       - patch
       - update
+      - watch
   - apiGroups:
       - v1
     resources:
@@ -177,11 +207,33 @@ rules:
       - update
       - watch
   - apiGroups:
-      - 'apiextensions.k8s.io'
+      - serving.knative.dev
     resources:
-      - customresourcedefinitions
+      - services
     verbs:
+      - create
+      - delete
       - get
       - list
+      - patch
+      - update
       - watch
+  - apiGroups:
+      - eventing.knative.dev
+    resources:
+      - triggers
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - eventing.knative.dev
+    resources:
+      - brokers
+    verbs:
+      - get
   {{- end }}

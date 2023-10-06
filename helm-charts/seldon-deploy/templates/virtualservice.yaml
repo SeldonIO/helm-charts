@@ -21,6 +21,7 @@ spec:
         prefix: {{ .Values.virtualService.prefix }}
     route:
     - destination:
+        # Note: not currently used, may be useful later.
         {{- if .Values.ui }}
         host: {{ include "seldon-deploy.fullname" . }}-ui
         {{ else }}
