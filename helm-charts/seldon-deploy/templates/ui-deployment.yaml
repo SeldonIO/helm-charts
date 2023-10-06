@@ -1,3 +1,4 @@
+# Note: not currently used, may be useful later.
 {{- if .Values.ui -}}
 apiVersion: apps/v1
 kind: Deployment
