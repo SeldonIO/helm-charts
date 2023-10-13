@@ -55,6 +55,7 @@ env:
   # APP_ANALYTICS_TOKEN: "" # if enableAppAnalytics enabled use token
   SELDON_MANAGED_INFRA: "false"
   ALERTMANAGER_URL: "http://seldon-monitoring-alertmanager.seldon-monitoring:9093/api/v1/alerts"
+  SD_FLAG_BATCH_JOBS_MULTI_INPUT_DATA_PATH_ENABLED: "false"
 
   # Cache duration for listing visible namespaces to Deploy. Higher values improve performance on common operations
   # around listing deployments, but reduce responsiveness to adding new namespaces. Set the value to "0"  to disable

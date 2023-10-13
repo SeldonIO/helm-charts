@@ -10,6 +10,7 @@ data:
       { "ID": "SELDON_DEPLOYMENTS_ENABLED", "Value": "{{ .Values.seldon.enabled }}" },
       { "ID": "KNATIVE_SERVICES_ENABLED", "Value": "{{ .Values.seldon.knativeEnabled }}" },
       { "ID": "SELDON_PIPELINES_ENABLED", "Value": "{{ .Values.seldonCoreV2.enabled }}" },
-      { "ID": "INFERENCE_LOGS_SERVICE_ENABLED", "Value": "{{ .Values.inferenceLogs.enabled }}" }
+      { "ID": "INFERENCE_LOGS_SERVICE_ENABLED", "Value": "{{ .Values.inferenceLogs.enabled }}" },
+      { "ID": "BATCH_JOBS_MULTI_INPUT_DATA_PATH_ENABLED", "Value": "{{ .Values.env.SD_FLAG_BATCH_JOBS_MULTI_INPUT_DATA_PATH_ENABLED }}" }
     ]
 {{- end -}}
