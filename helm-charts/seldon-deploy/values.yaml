@@ -194,7 +194,7 @@ rbac:
     enabled: false
     configMap: seldon-deploy-policies
     projectAuthEnabled: false
-    permissionManagementAPIDisabled: false
+    permissionManagementAPIDisabled: true
     # istioPolicySyncInterval configures how often the istio policies for direct model access should be synced with the
     # current OPA permissions. A negative or zero value means the policies won't be synced. A sensible default if you
     # want to sync them is "5m".
