@@ -1,5 +1,26 @@
 apiVersion: v1
 entries:
+  minio:
+  - apiVersion: v1
+    appVersion: master
+    created: "2023-11-30T16:59:11.158277323Z"
+    description: High Performance, Kubernetes Native Object Storage
+    digest: 4a56439b73d1ae08d56eee66101d7fc828a8d73c01e1fdc11cd1a59e4c5c86ab
+    home: https://min.io
+    icon: https://min.io/resources/img/logo/MINIO_wordmark.png
+    keywords:
+    - storage
+    - object-storage
+    - S3
+    maintainers:
+    - email: dev@minio.io
+      name: MinIO, Inc
+    name: minio
+    sources:
+    - https://github.com/minio/minio
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/minio-8.0.10/minio-8.0.10.tgz
+    version: 8.0.10
   scv2-all-in-one:
   - apiVersion: v2
     appVersion: 2.3.0
@@ -923,4 +944,4 @@ entries:
     urls:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-deploy-2.0.0-rc3/seldon-deploy-2.0.0-rc3.tgz
     version: 2.0.0-rc3
-generated: "2023-10-31T16:53:22.598654878Z"
+generated: "2023-11-30T16:59:11.158494638Z"
