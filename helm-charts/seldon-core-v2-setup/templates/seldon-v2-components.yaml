@@ -1123,10 +1123,10 @@ spec:
         resources:
           requests:
             cpu: '{{ .Values.pipelinegateway.resources.requests.cpu }}'
-            memory: '{{ .Values.pipelinegateway.resources.liimts.memory }}'
+            memory: '{{ .Values.pipelinegateway.resources.limits.memory }}'
           limits:
             cpu: '{{ .Values.pipelinegateway.resources.requests.cpu }}'
-            memory: '{{ .Values.pipelinegateway.resources.liimts.memory }}'
+            memory: '{{ .Values.pipelinegateway.resources.limits.memory }}'
         volumeMounts:
         - mountPath: /mnt/kafka
           name: kafka-config-volume
@@ -1451,7 +1451,7 @@ spec:
             cpu: '{{ .Values.dataflow.resources.requests.cpu }}'
             memory: '{{ .Values.dataflow.resources.requests.memory }}'
           limits:
-            cpu: '{{ .Values.dataflow.resources.limits.memory }}'
+            cpu: '{{ .Values.dataflow.resources.limits.cpu }}'
             memory: '{{ .Values.dataflow.resources.limits.memory }}'
 {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
