@@ -88,8 +88,12 @@ hodometer:
   metricsLevel: feature
   extraPublishUrls: ""
   resources:
-    cpu: 1m
-    memory: 32Mi
+    requests:
+      cpu: 1m
+      memory: 32Mi
+    limits:
+      cpu:
+      memory: 32Mi
   securityContext:
     fsGroup: 1000
     runAsUser: 1000
@@ -123,8 +127,12 @@ modelgateway:
     tag: 2.7.0
   workers: 8
   resources:
-    cpu: 100m
-    memory: 1G
+    requests:
+      cpu: 100m
+      memory: 1G
+    limits:
+      cpu:
+      memory: 1G
   securityContext:
     fsGroup: 1000
     runAsUser: 1000
@@ -138,8 +146,12 @@ pipelinegateway:
     repository: seldonio/seldon-pipelinegateway
     tag: 2.7.0
   resources:
-    cpu: 100m
-    memory: 1G
+    requests:
+      cpu: 100m
+      memory: 1G
+    limits:
+      cpu:
+      memory: 1G
   securityContext:
     fsGroup: 1000
     runAsUser: 1000
@@ -154,8 +166,12 @@ dataflow:
     tag: 2.7.0
   cores: 4
   resources:
-    cpu: 100m
-    memory: 1G
+    requests:
+      cpu: 100m
+      memory: 1G
+    limits:
+      cpu:
+      memory: 1G
   securityContext:
     fsGroup: 1000
     runAsUser: 1000
@@ -170,8 +186,12 @@ controller:
     repository: seldonio/seldonv2-controller
     tag: 2.7.0
   resources:
-    cpu: 10m
-    memory: 64Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
+    limits:
+      cpu:
+      memory: 64Mi
   securityContext:
     fsGroup: 1000
     runAsUser: 1000
@@ -185,8 +205,12 @@ envoy:
     repository: seldonio/seldon-envoy
     tag: 2.7.0
   resources:
-    cpu: 100m
-    memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu:
+      memory: 128Mi
   service:
     type: LoadBalancer
   securityContext:
@@ -202,9 +226,13 @@ scheduler:
     repository: seldonio/seldon-scheduler
     tag: 2.7.0
   resources:
-    cpu: 100m
-    memory: 1Gi
-    storage: 1Gi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+      storage: 1Gi
+    limits:
+      cpu:
+      memory: 128Mi
   service:
     type: LoadBalancer
   securityContext:
@@ -229,8 +257,12 @@ serverConfig:
       repository: seldonio/seldon-rclone
       tag: 2.7.0
     resources:
-      cpu: 50m
-      memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu:
+        memory: 128Mi
 
   agent:
     image:
@@ -243,8 +275,12 @@ serverConfig:
     modelInferenceLagThreshold: "30"
     modelInactiveSecondsThreshold: "600"
     resources:
-      cpu: 200m
-      memory: 1Gi
+      requests:
+        cpu: 200m
+        memory: 1Gi
+      limits:
+        cpu:
+        memory: 1Gi
 
   mlserver:
     image:
@@ -255,8 +291,12 @@ serverConfig:
     serverCapabilities: "mlserver,alibi-detect,alibi-explain,huggingface,lightgbm,mlflow,python,sklearn,spark-mlib,xgboost"
     modelVolumeStorage: 1Gi
     resources:
-      cpu: 100m
-      memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 1Gi
+      limits:
+        cpu:
+        memory: 1Gi
 
   triton:
     image:
@@ -267,8 +307,12 @@ serverConfig:
     serverCapabilities: "triton,dali,fil,onnx,openvino,python,pytorch,tensorflow,tensorrt"
     modelVolumeStorage: 1Gi
     resources:
-      cpu: 100m
-      memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 1Gi
+      limits:
+        cpu:
+        memory: 1Gi
 
 services:
 # For use with service meshes like Istio, which require specific prefixes for
