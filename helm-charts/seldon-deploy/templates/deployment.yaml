@@ -55,6 +55,8 @@ spec:
             {{- end}}
             - name: "ENABLE_READ_NAMESPACES"
               value: "{{ .Values.rbac.readNamespaces }}"
+            - name: "ENABLED_NAMESPACES"
+              value: "{{ join "," .Values.rbac.namespaces }}"
             - name: "CORE_V1_CRD_AVAILABLE"
               value: "{{ .Values.seldon.enabled }}"
             - name: "CORE_V2_CRD_AVAILABLE"
@@ -85,6 +87,10 @@ spec:
               value: "{{ .Values.workflow.securityContext.runAsUser }}"
             - name: "WORKFLOW_SECURITY_CONTEXT_FS_GROUP"
               value: "{{ .Values.workflow.securityContext.fsGroup }}"
+            - name: "CLIENTGO_RATELIMITER_QPS"
+              value: "{{ .Values.clientGo.rateLimiter.qps }}"
+            - name: "CLIENTGO_RATELIMITER_BURST"
+              value: "{{ .Values.clientGo.rateLimiter.burst }}"
             {{- if .Values.gitops.fileFormat }}
             - name: "GITOPS_FORMAT"
               value: "{{ .Values.gitops.fileFormat }}"
@@ -354,8 +360,6 @@ spec:
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           volumeMounts:
-            - name: custom-theme
-              mountPath: "/seldon-deploy/custom-theme"
 {{- if and .Values.gitops.git.secret .Values.gitops.argocd.enabled }}
             - name: ssh-known-hosts
               mountPath: "/etc/ssh"
@@ -379,10 +383,6 @@ spec:
               readOnly: true
 {{- end}}
       volumes:
-        - name: custom-theme
-          secret:
-            secretName: seldon-deploy-custom-theme
-            optional: true
 {{- if and .Values.gitops.git.secret .Values.gitops.argocd.enabled }}
         - name: ssh-known-hosts
           secret:
