@@ -4,22 +4,6 @@
 
 Seldon Core CRD and controller helm chart for Kubernetes.
 
-## Usage
-
-To use this chart, you will first need to add the `seldonio` Helm repo:
-
-```bash
-helm repo add seldonio https://storage.googleapis.com/seldon-charts
-helm repo update
-```
-
-Once that's done, you should then be able to deploy the chart as:
-
-```bash
-kubectl create namespace seldon-system
-helm install seldon-core-operator seldonio/seldon-core-operator --namespace seldon-system
-```
-
 ## Source Code
 
 * <https://github.com/SeldonIO/seldon-core>
