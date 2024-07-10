@@ -19,7 +19,7 @@ loadtest:
   image: seldonio/hey-loadtester:0.2
 
 alibidetect:
-  image: seldonio/alibi-detect-server:1.18.1
+  image: seldonio/alibi-detect-server:1.18.2
 
 nameOverride: ""
 fullnameOverride: ""
@@ -122,11 +122,11 @@ clientGo:
 
 batchjobs:
   processor:
-    image: seldonio/seldon-core-s2i-python38:1.18.1
+    image: seldonio/seldon-core-s2i-python38:1.18.2
   processorV2:
-    image: seldonio/mlserver:1.4.0-slim
+    image: seldonio/mlserver:1.6.0-slim
   storageInitializer:
-    image: seldonio/rclone-storage-initializer:1.18.1
+    image: seldonio/rclone-storage-initializer:1.18.2
   pvc:
     defaultSize: 1Gi
   resources:
