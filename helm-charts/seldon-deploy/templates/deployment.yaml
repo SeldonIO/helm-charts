@@ -71,6 +71,10 @@ spec:
               value: "{{ .Values.batchjobs.processor.image }}"
             - name: "BATCHJOBS_PROCESSOR_V2_IMAGE"
               value: "{{ .Values.batchjobs.processorV2.image }}"
+            {{- if .Values.batchjobs.processorV2.secret }}
+            - name: "BATCHJOBS_PROCESSOR_V2_IMAGE_SECRET"
+              value: "{{ .Values.batchjobs.processorV2.secret }}"
+            {{- end }}
             - name: "BATCHJOBS_STORAGE_INITIALIZER_IMAGE"
               value: "{{ .Values.batchjobs.storageInitializer.image }}"
             - name: "BATCHJOBS_PVC_DEFAULT_SIZE"
