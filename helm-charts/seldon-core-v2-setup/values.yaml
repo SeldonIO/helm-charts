@@ -79,12 +79,21 @@ opentelemetry:
   disable: false
   ratio: 1
 
+# logging
+# this is a global setting, in the case individual components logLevel is not set
+# Users should set a value from: 
+# fatal, error, warn, info, debug, trace
+# if used also for .rclone.logLevel, the allowed set reduces to:
+# debug, info, error
+logging:
+  logLevel: info
+
 hodometer:
   image:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-hodometer
-    tag: 2.8.5
+    tag: 2.9.0
   logLevel: info
   metricsLevel: feature
   extraPublishUrls: ""
@@ -121,7 +130,7 @@ modelgateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-modelgateway
-    tag: 2.8.5
+    tag: 2.9.0
   workers: 8
   resources:
     cpu: 100m
@@ -137,7 +146,7 @@ pipelinegateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-pipelinegateway
-    tag: 2.8.5
+    tag: 2.9.0
   resources:
     cpu: 100m
     memory: 1G
@@ -152,7 +161,7 @@ dataflow:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-dataflow-engine
-    tag: 2.8.5
+    tag: 2.9.0
   cores: 4
   resources:
     cpu: 100m
@@ -162,6 +171,7 @@ dataflow:
     runAsUser: 1000
     runAsGroup: 1000
     runAsNonRoot: true
+  logLevelKafka: warn
 
 controller:
   clusterwide: false
@@ -169,7 +179,7 @@ controller:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldonv2-controller
-    tag: 2.8.5
+    tag: 2.9.0
   resources:
     cpu: 10m
     memory: 64Mi
@@ -188,7 +198,7 @@ envoy:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-envoy
-    tag: 2.8.5
+    tag: 2.9.0
   resources:
     cpu: 100m
     memory: 128Mi
@@ -199,13 +209,19 @@ envoy:
     runAsUser: 1000
     runAsGroup: 1000
     runAsNonRoot: true
+  preStopSleepPeriodSeconds: 30
+  terminationGracePeriodSeconds: 120
+  adminInterfacePort: 9901
+  accesslogPath: /tmp/envoy-accesslog.txt
+  enableAccesslog: true
+  includeSuccessfulRequests: false
 
 scheduler:
   image:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-scheduler
-    tag: 2.8.5
+    tag: 2.9.0
   resources:
     cpu: 100m
     memory: 1Gi
@@ -218,6 +234,12 @@ scheduler:
     runAsGroup: 1000
     runAsNonRoot: true
   schedulerReadyTimeoutSeconds: 600
+  
+autoscaling:
+  autoscalingModelEnabled: false
+  autoscalingServerEnabled: true
+  serverPackingEnabled: false
+  serverPackingPercentage: 0.0
 
 serverConfig:
   terminationGracePeriodSeconds: 120
@@ -233,17 +255,19 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-rclone
-      tag: 2.8.5
+      tag: 2.9.0
     resources:
       cpu: 50m
       memory: 128Mi
+    # should follow `log-level` from https://rclone.org/docs/
+    logLevel: info
 
   agent:
     image:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-agent
-      tag: 2.8.5
+      tag: 2.9.0
     overcommitPercentage: "10"
     scalingStatsPeriodSeconds: "20"
     modelInferenceLagThreshold: "30"
@@ -265,7 +289,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/mlserver
-      tag: 1.6.0
+      tag: 1.6.1
     serverCapabilities: "mlserver,alibi-detect,alibi-explain,huggingface,lightgbm,mlflow,python,sklearn,spark-mlib,xgboost"
     modelVolumeStorage: 1Gi
     resources:
