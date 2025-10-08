@@ -185,6 +185,10 @@ spec:
       jsonPath: .status.availableReplicas
       name: Available Replicas
       type: integer
+    - description: Model Gateway ready status
+      jsonPath: .status.modelgwReady
+      name: ModelGw Ready
+      type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
@@ -382,6 +386,9 @@ spec:
                   - type
                   type: object
                 type: array
+              modelgwReady:
+                description: Model Gateway ready status
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the 'Generation' of the Service that
@@ -430,6 +437,11 @@ spec:
     - description: Models ready status
       jsonPath: .status.conditions[?(@.type=='ModelsReady')].status
       name: Models ready
+      priority: 1
+      type: string
+    - description: PipelineGw ready status
+      jsonPath: .status.conditions[?(@.type=='PipelineGwReady')].status
+      name: PipelineGw ready
       priority: 1
       type: string
     - description: Dataflow ready status
@@ -9041,6 +9053,51 @@ spec:
                         type: object
                       topicPrefix:
                         type: string
+                      topics:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          x-kubernetes-int-or-string: true
+                        type: object
+                    type: object
+                  scalingConfig:
+                    description: Control scaling parameters for various components
+                    properties:
+                      models:
+                        properties:
+                          enabled:
+                            type: boolean
+                        type: object
+                      pipelines:
+                        description: Scaling config impacting pipeline-gateway, dataflow-engine
+                          and model-gateway
+                        properties:
+                          maxShardCountMultiplier:
+                            description: |-
+                              MaxShardCountMultiplier influences the way the inferencing workload is sharded over the
+                              replicas of pipeline components.
+
+                              - For each of pipeline-gateway and dataflow-engine, the max number of replicas is
+                                `maxShardCountMultiplier * number of pipelines`
+                              - For model-gateway, the max number of replicas is
+                                `maxShardCountMultiplier * number of consumers`
+
+                              It doesn't make sense to set this to a value larger than the number of partitions for kafka
+                              topics used in the Core 2 install.
+                            format: int32
+                            type: integer
+                        type: object
+                      servers:
+                        properties:
+                          enabled:
+                            type: boolean
+                          scaleDownPackingEnabled:
+                            type: boolean
+                          scaleDownPackingPercentage:
+                            format: int32
+                            type: integer
+                        type: object
                     type: object
                   serviceConfig:
                     properties:
@@ -9160,6 +9217,51 @@ spec:
                         type: object
                       topicPrefix:
                         type: string
+                      topics:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          x-kubernetes-int-or-string: true
+                        type: object
+                    type: object
+                  scalingConfig:
+                    description: Control scaling parameters for various components
+                    properties:
+                      models:
+                        properties:
+                          enabled:
+                            type: boolean
+                        type: object
+                      pipelines:
+                        description: Scaling config impacting pipeline-gateway, dataflow-engine
+                          and model-gateway
+                        properties:
+                          maxShardCountMultiplier:
+                            description: |-
+                              MaxShardCountMultiplier influences the way the inferencing workload is sharded over the
+                              replicas of pipeline components.
+
+                              - For each of pipeline-gateway and dataflow-engine, the max number of replicas is
+                                `maxShardCountMultiplier * number of pipelines`
+                              - For model-gateway, the max number of replicas is
+                                `maxShardCountMultiplier * number of consumers`
+
+                              It doesn't make sense to set this to a value larger than the number of partitions for kafka
+                              topics used in the Core 2 install.
+                            format: int32
+                            type: integer
+                        type: object
+                      servers:
+                        properties:
+                          enabled:
+                            type: boolean
+                          scaleDownPackingEnabled:
+                            type: boolean
+                          scaleDownPackingPercentage:
+                            format: int32
+                            type: integer
+                        type: object
                     type: object
                   serviceConfig:
                     properties:
@@ -23892,7 +23994,6 @@ spec:
                 type: array
             required:
             - podSpec
-            - volumeClaimTemplates
             type: object
           status:
             description: ServerConfigStatus defines the observed state of ServerConfig
@@ -23968,6 +24069,53 @@ spec:
                 items:
                   type: string
                 type: array
+              deploymentStrategy:
+                description: Deployment strategy
+                properties:
+                  rollingUpdate:
+                    description: |-
+                      Rolling update config params. Present only if DeploymentStrategyType =
+                      RollingUpdate.
+                    properties:
+                      maxSurge:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        description: |-
+                          The maximum number of pods that can be scheduled above the desired number of
+                          pods.
+                          Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%).
+                          This can not be 0 if MaxUnavailable is 0.
+                          Absolute number is calculated from percentage by rounding up.
+                          Defaults to 25%.
+                          Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when
+                          the rolling update starts, such that the total number of old and new pods do not exceed
+                          130% of desired pods. Once old pods have been killed,
+                          new ReplicaSet can be scaled up further, ensuring that total number of pods running
+                          at any time during the update is at most 130% of desired pods.
+                        x-kubernetes-int-or-string: true
+                      maxUnavailable:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        description: |-
+                          The maximum number of pods that can be unavailable during the update.
+                          Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%).
+                          Absolute number is calculated from percentage by rounding down.
+                          This can not be 0 if MaxSurge is 0.
+                          Defaults to 25%.
+                          Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods
+                          immediately when the rolling update starts. Once new pods are ready, old ReplicaSet
+                          can be scaled down further, followed by scaling up the new ReplicaSet, ensuring
+                          that the total number of pods available at all times during the update is at
+                          least 70% of desired pods.
+                        x-kubernetes-int-or-string: true
+                    type: object
+                  type:
+                    description: Type of deployment. Can be "Recreate" or "RollingUpdate".
+                      Default is RollingUpdate.
+                    type: string
+                type: object
               disableAutoUpdate:
                 description: |-
                   If set then when the referenced ServerConfig changes we will NOT update the Server immediately.
