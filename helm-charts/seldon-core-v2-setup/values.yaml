@@ -1,3 +1,5 @@
+useDeploymentsForServers: false
+
 # Security settings
 security:
   controlplane:
@@ -34,6 +36,8 @@ security:
         caPath: /tmp/certs/kafka/client/ca.crt
         brokerCaPath: /tmp/certs/kafka/broker/ca.crt
         endpointIdentificationAlgorithm:
+  schemaRegistry:
+    configPath:
   envoy:
     protocol: PLAINTEXT
     ssl:
@@ -81,7 +85,7 @@ opentelemetry:
 
 # logging
 # this is a global setting, in the case individual components logLevel is not set
-# Users should set a value from: 
+# Users should set a value from:
 # fatal, error, warn, info, debug, trace
 # if used also for .rclone.logLevel, the allowed set reduces to:
 # debug, info, error
@@ -93,7 +97,7 @@ hodometer:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-hodometer
-    tag: 2.9.1
+    tag: 2.10.0
   logLevel: info
   metricsLevel: feature
   extraPublishUrls: ""
@@ -130,8 +134,9 @@ modelgateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-modelgateway
-    tag: 2.9.1
+    tag: 2.10.0
   workers: 8
+  maxNumConsumers: 100
   resources:
     cpu: 100m
     memory: 1G
@@ -146,7 +151,8 @@ pipelinegateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-pipelinegateway
-    tag: 2.9.1
+    tag: 2.10.0
+  maxNumConsumers: 100
   resources:
     cpu: 100m
     memory: 1G
@@ -161,26 +167,30 @@ dataflow:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-dataflow-engine
-    tag: 2.9.1
+    tag: 2.10.0
   cores: 4
   resources:
     cpu: 100m
-    memory: 1G
+    memory: 3G
   securityContext:
     fsGroup: 1000
     runAsUser: 1000
     runAsGroup: 1000
     runAsNonRoot: true
   logLevelKafka: warn
+  pipelineCtlopsThreads: 8
 
 controller:
+  annotations:
+    sidecar.istio.io/inject: "false"
+    kubectl.kubernetes.io/default-container: manager
   clusterwide: false
   skipOperatorClusterRoleCreation: false
   image:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldonv2-controller
-    tag: 2.9.1
+    tag: 2.10.0
   resources:
     cpu: 10m
     memory: 64Mi
@@ -199,7 +209,7 @@ envoy:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-envoy
-    tag: 2.9.1
+    tag: 2.10.0
   resources:
     cpu: 100m
     memory: 128Mi
@@ -222,7 +232,7 @@ scheduler:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-scheduler
-    tag: 2.9.1
+    tag: 2.10.0
   resources:
     cpu: 100m
     memory: 1Gi
@@ -235,7 +245,7 @@ scheduler:
     runAsGroup: 1000
     runAsNonRoot: true
   schedulerReadyTimeoutSeconds: 600
-  
+
 autoscaling:
   autoscalingModelEnabled: false
   autoscalingServerEnabled: true
@@ -256,10 +266,12 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-rclone
-      tag: 2.9.1
+      tag: 2.10.0
     resources:
       cpu: 50m
       memory: 128Mi
+      limits:
+        memory: 256Mi
     # should follow `log-level` from https://rclone.org/docs/
     logLevel: info
 
@@ -268,7 +280,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-agent
-      tag: 2.9.1
+      tag: 2.10.0
     overcommitPercentage: "10"
     scalingStatsPeriodSeconds: "20"
     modelInferenceLagThreshold: "30"
