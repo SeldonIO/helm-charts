@@ -339,6 +339,19 @@ entries:
     version: 1.15.0-rc1
   seldon-core-v2-crds:
   - apiVersion: v1
+    appVersion: 2.10.1
+    created: "2025-10-20T17:25:49.620109674Z"
+    description: Seldon Core V2 CRDs
+    digest: 45cce1e048cfc7b9a79eaaa482f39462090972a5f08b7e57a47ae1beacf6f79a
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-crds
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-crds-2.10.1/seldon-core-v2-crds-2.10.1.tgz
+    version: 2.10.1
+  - apiVersion: v1
     appVersion: 2.10.0
     created: "2025-10-08T08:45:23.458051848Z"
     description: Seldon Core V2 CRDs
@@ -639,6 +652,19 @@ entries:
     version: 0.4.0-rc2
   seldon-core-v2-runtime:
   - apiVersion: v1
+    appVersion: 2.10.1
+    created: "2025-10-20T17:25:49.750884734Z"
+    description: Seldon Core V2 Runtime
+    digest: 19953499a2b2289ddf7b7f1cb4fcb80d66ab5affbba2e472caac6357ac818e2e
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-runtime
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-runtime-2.10.1/seldon-core-v2-runtime-2.10.1.tgz
+    version: 2.10.1
+  - apiVersion: v1
     appVersion: 2.10.0
     created: "2025-10-08T08:45:23.613900821Z"
     description: Seldon Core V2 Runtime
@@ -795,6 +821,19 @@ entries:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-runtime-2.6.0/seldon-core-v2-runtime-2.6.0.tgz
     version: 2.6.0
   seldon-core-v2-servers:
+  - apiVersion: v1
+    appVersion: 2.10.1
+    created: "2025-10-20T17:25:49.897836825Z"
+    description: Seldon Core V2 Servers
+    digest: 4038077f66899914abe935a9d92b75c446dae3919fc8599b5834a07b50b37b0b
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-servers
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-servers-2.10.1/seldon-core-v2-servers-2.10.1.tgz
+    version: 2.10.1
   - apiVersion: v1
     appVersion: 2.10.0
     created: "2025-10-08T08:45:23.751758633Z"
@@ -1095,6 +1134,19 @@ entries:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-servers-0.4.0-rc2/seldon-core-v2-servers-0.4.0-rc2.tgz
     version: 0.4.0-rc2
   seldon-core-v2-setup:
+  - apiVersion: v1
+    appVersion: 2.10.1
+    created: "2025-10-20T17:25:50.037545625Z"
+    description: Seldon Core V2 Setup
+    digest: 91c9c5e16ad3d0dba09a54b5c4f69835a0eb58d8ffe76c03a75c84d74625d0f8
+    keywords:
+    - kubernetes
+    - machine-learning
+    - mlops
+    name: seldon-core-v2-setup
+    urls:
+    - https://github.com/SeldonIO/helm-charts/releases/download/seldon-core-v2-setup-2.10.1/seldon-core-v2-setup-2.10.1.tgz
+    version: 2.10.1
   - apiVersion: v1
     appVersion: 2.10.0
     created: "2025-10-08T08:45:23.920639043Z"
@@ -1548,4 +1600,4 @@ entries:
     urls:
     - https://github.com/SeldonIO/helm-charts/releases/download/seldon-deploy-2.0.0-rc3/seldon-deploy-2.0.0-rc3.tgz
     version: 2.0.0-rc3
-generated: "2025-10-08T08:45:23.921167964Z"
+generated: "2025-10-20T17:25:50.038226457Z"
