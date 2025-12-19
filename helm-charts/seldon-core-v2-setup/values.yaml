@@ -97,7 +97,7 @@ hodometer:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-hodometer
-    tag: 2.10.2-rc1
+    tag: 2.10.2
   logLevel: info
   metricsLevel: feature
   extraPublishUrls: ""
@@ -134,7 +134,7 @@ modelgateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-modelgateway
-    tag: 2.10.2-rc1
+    tag: 2.10.2
   workers: 8
   maxNumConsumers: 100
   resources:
@@ -151,7 +151,7 @@ pipelinegateway:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-pipelinegateway
-    tag: 2.10.2-rc1
+    tag: 2.10.2
   maxNumConsumers: 100
   resources:
     cpu: 100m
@@ -167,7 +167,7 @@ dataflow:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-dataflow-engine
-    tag: 2.10.2-rc1
+    tag: 2.10.2
   cores: 4
   resources:
     cpu: 100m
@@ -190,7 +190,7 @@ controller:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldonv2-controller
-    tag: 2.10.2-rc1
+    tag: 2.10.2
   resources:
     cpu: 10m
     memory: 64Mi
@@ -209,7 +209,7 @@ envoy:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-envoy
-    tag: 2.10.2-rc1
+    tag: 2.10.2
   resources:
     cpu: 100m
     memory: 128Mi
@@ -232,7 +232,7 @@ scheduler:
     pullPolicy: IfNotPresent
     registry: docker.io
     repository: seldonio/seldon-scheduler
-    tag: 2.10.2-rc1
+    tag: 2.10.2
   resources:
     cpu: 100m
     memory: 1Gi
@@ -266,7 +266,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-rclone
-      tag: 2.10.2-rc1
+      tag: 2.10.2
     resources:
       cpu: 50m
       memory: 128Mi
@@ -280,7 +280,7 @@ serverConfig:
       pullPolicy: IfNotPresent
       registry: docker.io
       repository: seldonio/seldon-agent
-      tag: 2.10.2-rc1
+      tag: 2.10.2
     overcommitPercentage: "10"
     scalingStatsPeriodSeconds: "20"
     modelInferenceLagThreshold: "30"
@@ -305,6 +305,8 @@ serverConfig:
       tag: 1.7.1
     serverCapabilities: "mlserver,alibi-detect,alibi-explain,huggingface,lightgbm,mlflow,python,sklearn,spark-mlib,xgboost"
     modelVolumeStorage: 1Gi
+    parallel_workers: 1
+    debug: "false"
     resources:
       cpu: 100m
       memory: 1Gi
